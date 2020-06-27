@@ -36,8 +36,8 @@ export default new Vuex.Store({
     getTarea ({commit}, idTarea) {
       db.collection('tareas').doc(idTarea).get()
         .then(doc => {
-          console.log(doc.id)
-          console.log(doc.data())
+          //console.log(doc.id)
+          //console.log(doc.data())
           let tarea = doc.data()
           tarea.id = doc.id
           commit('setTarea', tarea)
@@ -49,7 +49,16 @@ export default new Vuex.Store({
         nombre: tarea.nombre
       })
         .then(() => {
-          console.log('Tarea editada')
+          //console.log('Tarea editada')
+          router.push('/')
+        })
+    },
+    agregarTarea({commit}, nombreTarea) {
+      db.collection('tareas').add({
+        nombre: nombreTarea
+      })
+        .then(doc => {
+          //console.log(doc.id)
           router.push('/')
         })
     }
