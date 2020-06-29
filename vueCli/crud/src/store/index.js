@@ -16,6 +16,9 @@ export default new Vuex.Store({
     },
     setTarea (state, payload) {
       state.tarea = payload
+    },
+    setEliminarTarea(state, payload) {
+      state.tareas = state.tareas.filter(item => item.id !== payload)
     }
   },
   actions: {
@@ -24,8 +27,6 @@ export default new Vuex.Store({
       db.collection('tareas').get()
         .then(res => {
           res.forEach(doc => {
-            /* console.log(doc.id)
-            console.log(doc.data()) */
             let tarea = doc.data()
             tarea.id = doc.id
             tareas.push(tarea)
@@ -36,8 +37,6 @@ export default new Vuex.Store({
     getTarea ({commit}, idTarea) {
       db.collection('tareas').doc(idTarea).get()
         .then(doc => {
-          //console.log(doc.id)
-          //console.log(doc.data())
           let tarea = doc.data()
           tarea.id = doc.id
           commit('setTarea', tarea)
@@ -49,7 +48,6 @@ export default new Vuex.Store({
         nombre: tarea.nombre
       })
         .then(() => {
-          //console.log('Tarea editada')
           router.push('/')
         })
     },
@@ -58,9 +56,16 @@ export default new Vuex.Store({
         nombre: nombreTarea
       })
         .then(doc => {
-          //console.log(doc.id)
           router.push('/')
         })
+    },
+    eliminarTarea({commit, dispatch}, idTarea) {
+      db.collection('tareas').doc(idTarea).delete()
+      .then(() => {
+        console.log('Tarea eliminada')
+        // dispatch('getTareas') -> Esto actualiza los datos a coste de un llamada a bd
+        commit('setEliminarTarea', idTarea)
+      })
     }
   },
   modules: {

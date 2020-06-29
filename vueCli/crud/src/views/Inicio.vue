@@ -2,14 +2,18 @@
   <div>
     <h1>Inicio</h1>
     <router-link :to="{name: 'Agregar'}">
-      <button>Agregar</button>
+      <button class="btn btn-success btn-block">Agregar</button>
     </router-link>
-    <ul>
-      <li v-for="(item,index) in tareas" :key="index">
+    <ul class="list-group mt-5">
+      <li v-for="(item,index) in tareas" :key="index" class="list-group-item">
         {{ item.nombre }} - {{ item.id }}
-        <router-link :to="{name: 'Editar', params: {id: item.id}}">
-          <button >Editar</button>
-        </router-link>
+        <div class="float-right">
+          <router-link :to="{name: 'Editar', params: {id: item.id}}"
+            class="btn btn-warning btn-sm mr-2">Editar
+          </router-link>
+          <button @click="eliminarTarea(item.id)"
+            class="btn btn-danger btn-sm">Eliminar</button>
+        </div>
       </li>
       
     </ul>
@@ -24,7 +28,7 @@ export default {
     this.getTareas()
   },
   methods: {
-    ...mapActions(['getTareas'])
+    ...mapActions(['getTareas', 'eliminarTarea'])
   },
   computed: {
     ...mapState(['tareas'])
