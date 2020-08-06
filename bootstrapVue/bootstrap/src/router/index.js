@@ -30,6 +30,11 @@ const routes = [
     name: "Form",
     component: () => import("../views/Form.vue"),
   },
+  {
+    path: "/validaciones",
+    name: "Validaciones",
+    component: () => import("../views/Validaciones.vue"),
+  },
 ];
 
 const router = new VueRouter({

@@ -6,10 +6,11 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
 Vue.config.productionTip = false;
 
-// Install BootstrapVue
 Vue.use(BootstrapVue);
-// Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
+
+import Vuelidate from "vuelidate";
+Vue.use(Vuelidate);
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
